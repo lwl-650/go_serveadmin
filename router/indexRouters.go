@@ -11,6 +11,7 @@ func IndexRoutersInit(r *gin.Engine) {
 	{
 		// index.Use(Content) //路由分组中间件
 		index.GET("/find", apis.AdminController{}.Findthis)
+		index.POST("/setUser", apis.UserController{}.SetUser)
 	}
 
 }
