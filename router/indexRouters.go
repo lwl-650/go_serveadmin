@@ -13,6 +13,7 @@ func IndexRoutersInit(r *gin.Engine) {
 		index.GET("/find", apis.AdminController{}.Findthis)
 		index.POST("/setUser", apis.UserController{}.SetUser)
 		index.POST("/loginUser", apis.UserController{}.LoginUser)
+		index.POST("/tokenVerification", apis.UserController{}.TokenVerification)
 	}
 
 }
