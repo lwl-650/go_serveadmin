@@ -11,6 +11,27 @@ import (
 type UserController struct {
 }
 
+func (UserController) LoginUser(c *gin.Context) {
+	auser := make(map[string]interface{})
+	user := model.User{}
+	aname := c.PostForm("aname")
+	apass := c.PostForm("apass")
+	if aname != "" && apass != "" {
+		util.DB.Where("name=?", aname).First(&user)
+		if user.Pass == apass {
+			auser["aname"] = user.Name
+			auser["apass"] = user.Pass
+			token, _ := util.GenerateToken(auser)
+			user.Token = token
+			util.Success(c, user)
+		} else {
+			util.Error(c, -1, util.ApiCode.Message[util.ApiCode.FAILED])
+		}
+	} else {
+		util.Error(c, -1, util.ApiCode.Message[util.ApiCode.FAILED])
+	}
+}
+
 func (UserController) SetUser(c *gin.Context) {
 
 	name := c.PostForm("name")

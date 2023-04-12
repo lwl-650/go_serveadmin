@@ -1,6 +1,7 @@
 package apis
 
 import (
+	"fmt"
 	"go_serveadmin/util"
 
 	"go_serveadmin/model"
@@ -9,6 +10,10 @@ import (
 )
 
 type AdminController struct {
+}
+
+func init() {
+	fmt.Println("viper load ini: ------------------------------------------")
 }
 
 func (AdminController) Findthis(c *gin.Context) {
