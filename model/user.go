@@ -4,10 +4,10 @@ import "fmt"
 
 type User struct {
 	// gorm.Model
-	Id    int64  `json:"id"`
-	Name  string `json:"name"`
-	Pass  string `json:"pass"`
-	Token string `json:"token"`
+	Id       int64  `json:"id"`
+	Name     string `json:"name"`
+	Password string `json:"password"`
+	Token    string `json:"token"`
 }
 
 func init() {
