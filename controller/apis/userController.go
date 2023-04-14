@@ -14,12 +14,6 @@ type UserController struct {
 
 func (UserController) LoginUser(c *gin.Context) {
 	currentTime := time.Now().Unix()
-
-	// formatTimeStr := time.Unix(currentTime, 0).Format("2006-01-02 15:04:05")
-	// i := currentTime + 1800
-	// get := time.Unix(i, 0).Format("2006-01-02 15:04:05")
-	// fmt.Println(formatTimeStr, "===================", get)
-
 	auser := make(map[string]interface{})
 	user := model.User{}
 	name := c.PostForm("name")
@@ -46,21 +40,13 @@ func (UserController) LoginUser(c *gin.Context) {
 func (UserController) TokenVerification(c *gin.Context) {
 	mapss := make(map[string]interface{})
 	currentTime := time.Now().Unix()
-	fmt.Println(c.Request.Header.Get("Authorization"))
 	token := c.Request.Header.Get("Authorization")
 	// token = token[6:]
-	fmt.Println(token, "------------------------->")
-	fmt.Println(util.ConfirmToken(token, mapss))
 	auser, _ := util.ConfirmToken(token, mapss)
 	getTokenTimer := int64(auser["timer"].(float64))
-
-	fmt.Println("现在时间=》", currentTime, "====================?>token时间", getTokenTimer) // 输出: 123456
 	if currentTime < getTokenTimer {
-
-		fmt.Println("有效")
-		util.Success(c, auser)
+		util.Success(c, "登录成功")
 	} else {
-		// fmt.Println("过期")
 		util.Error(c, -1, "token过期")
 	}
 }
